@@ -1,85 +1,37 @@
-import { ReactNode } from 'react';
+import React from "react";
 
-interface SlideOverProps {
-  isOpen: boolean;
+export default function SlideOver(props: {
+  open: boolean;
   onClose: () => void;
+  children: React.ReactNode;
   title: string;
-  children: ReactNode;
-}
-
-export default function SlideOver({ isOpen, onClose, title, children }: SlideOverProps) {
-  if (!isOpen) return null;
+}) {
+  const { open, onClose, children, title } = props;
 
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        className="slide-over-backdrop"
-        onClick={onClose}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 40,
-        }}
-      />
-
-      {/* Slide over panel */}
-      <div
-        className="slide-over-panel"
-        style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: '400px',
-          maxWidth: '100%',
-          backgroundColor: 'white',
-          boxShadow: '-2px 0 8px rgba(0, 0, 0, 0.1)',
-          zIndex: 50,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* Header */}
-        <div
-          style={{
-            padding: '1.5rem',
-            borderBottom: '1px solid #e5e7eb',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{title}</h2>
-          <button
-            onClick={onClose}
-            style={{
-              padding: '0.5rem',
-              border: 'none',
-              background: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-            }}
-          >
-            ×
-          </button>
-        </div>
-
-        {/* Content */}
-        <div
-          style={{
-            flex: 1,
-            padding: '1.5rem',
-            overflowY: 'auto',
-          }}
-        >
-          {children}
-        </div>
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        right: open ? 0 : -360,
+        width: 360,
+        height: "100%",
+        background: "white",
+        borderLeft: "1px solid rgba(0,0,0,0.12)",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
+        transition: "right 180ms ease",
+        zIndex: 3,
+        display: "flex",
+        flexDirection: "column"
+      }}
+    >
+      <div style={{ padding: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ fontWeight: 700 }}>{title}</div>
+        <button onClick={onClose} style={{ border: "none", background: "transparent", cursor: "pointer", fontSize: 18 }}>
+          ✕
+        </button>
       </div>
-    </>
+      <div style={{ padding: 12, overflow: "auto", flex: 1 }}>{children}</div>
+    </div>
   );
 }
