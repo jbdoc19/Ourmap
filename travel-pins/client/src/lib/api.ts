@@ -1,59 +1,38 @@
-// API client utilities
+import type { SearchResult, Trip } from "./types";
 
-import type { Pin, CreatePinInput, UpdatePinInput, ApiResponse } from './types';
-
-const API_BASE_URL = '/api';
-
-export async function fetchPins(): Promise<Pin[]> {
-  const response = await fetch(`${API_BASE_URL}/pins`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch pins');
-  }
-  const data: ApiResponse<Pin[]> = await response.json();
-  return data.data || [];
+export async function searchPlaces(q: string): Promise<SearchResult[]> {
+  const r = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+  if (!r.ok) throw new Error("Search failed");
+  return r.json();
 }
 
-export async function createPin(input: CreatePinInput): Promise<Pin> {
-  const response = await fetch(`${API_BASE_URL}/pins`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(input),
-  });
-  if (!response.ok) {
-    throw new Error('Failed to create pin');
-  }
-  const data: ApiResponse<Pin> = await response.json();
-  if (!data.data) {
-    throw new Error('No data returned from create pin');
-  }
-  return data.data;
+export async function listTrips(): Promise<Trip[]> {
+  const r = await fetch("/api/trips");
+  if (!r.ok) throw new Error("List failed");
+  return r.json();
 }
 
-export async function updatePin(id: string, input: UpdatePinInput): Promise<Pin> {
-  const response = await fetch(`${API_BASE_URL}/pins/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(input),
+export async function createTrip(payload: {
+  placeName: string;
+  provider: "nominatim";
+  providerPlaceId?: string;
+  lat: number;
+  lon: number;
+  categoryKey: string;
+  categoryEmoji: string;
+  dateStart: string;
+  dateEnd: string | null;
+}): Promise<Trip> {
+  const r = await fetch("/api/trips", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
   });
-  if (!response.ok) {
-    throw new Error('Failed to update pin');
-  }
-  const data: ApiResponse<Pin> = await response.json();
-  if (!data.data) {
-    throw new Error('No data returned from update pin');
-  }
-  return data.data;
+  if (!r.ok) throw new Error("Create failed");
+  return r.json();
 }
 
-export async function deletePin(id: string): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/pins/${id}`, {
-    method: 'DELETE',
-  });
-  if (!response.ok) {
-    throw new Error('Failed to delete pin');
-  }
+export async function deleteTrip(id: number): Promise<void> {
+  const r = await fetch(`/api/trips/${id}`, { method: "DELETE" });
+  if (!r.ok) throw new Error("Delete failed");
 }
