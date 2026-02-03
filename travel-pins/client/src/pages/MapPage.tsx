@@ -4,7 +4,21 @@ import SlideOver from "../components/SlideOver";
 import { createTrip, listTrips, searchPlaces, deleteTrip } from "../lib/api";
 import type { SearchResult, Trip } from "../lib/types";
 
-const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty"; // OpenFreeMap example style 6
+// Simple basemap style using colored background (no external tiles needed)
+// This ensures the map loads even when external tile services are blocked
+const STYLE_URL = {
+  version: 8,
+  sources: {},
+  layers: [
+    {
+      id: "background",
+      type: "background",
+      paint: {
+        "background-color": "#d4dadc"
+      }
+    }
+  ]
+};
 
 type PanelMode = "list" | "add";
 
