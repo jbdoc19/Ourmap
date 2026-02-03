@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="0; url=./docs/" />
     <title>Ourmap</title>
     <style>
       :root {
@@ -19,6 +18,19 @@
         color: #e2e8f0;
       }
 
+      main {
+        max-width: 720px;
+      }
+
+      h1 {
+        margin-bottom: 0.5rem;
+        font-size: 2rem;
+      }
+
+      p {
+        margin-top: 0.75rem;
+      }
+
       a {
         color: #38bdf8;
         text-decoration: none;
@@ -28,14 +40,25 @@
       a:hover {
         text-decoration: underline;
       }
+
+      code {
+        padding: 0.15rem 0.35rem;
+        border-radius: 0.25rem;
+        background: rgba(148, 163, 184, 0.15);
+      }
     </style>
   </head>
   <body>
     <main>
-      <h1>Redirecting to the Travel Pins app…</h1>
+      <h1>Ourmap</h1>
       <p>
-        If you are not redirected automatically, open
-        <a href="./docs/">the published app</a>.
+        The Travel Pins app lives in the
+        <a href="travel-pins/client/">travel-pins/client</a> folder.
+      </p>
+      <p>
+        For GitHub Pages deployments, run <code>npm install</code> and
+        <code>npm run build</code> from the <code>travel-pins</code> folder,
+        then publish the client build output.
       </p>
     </main>
   </body>
