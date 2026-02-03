@@ -1,13 +1,5 @@
-import { useState } from 'react';
-import MapPage from './pages/MapPage';
-import './styles.css';
+import MapPage from "./pages/MapPage";
 
-function App() {
-  return (
-    <div className="app">
-      <MapPage />
-    </div>
-  );
+export default function App() {
+  return <MapPage />;
 }
-
-export default App;
