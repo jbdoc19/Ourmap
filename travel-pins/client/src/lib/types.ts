@@ -1,40 +1,26 @@
-// Type definitions for the client
+export type Trip = {
+  id: number;
+  place_name: string;
+  provider: string;
+  provider_place_id: string | null;
+  lat: number;
+  lon: number;
+  category_key: string;
+  category_emoji: string;
+  date_start: string;
+  date_end: string | null;
+  created_at: string;
+  updated_at: string;
+};
 
-export interface Pin {
-  id: string;
-  title: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-  emoji: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface CreatePinInput {
-  title: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-  emoji: string;
-}
-
-export interface UpdatePinInput {
-  title?: string;
-  description?: string;
-  latitude?: number;
-  longitude?: number;
-  emoji?: string;
-}
-
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-}
-
-export interface MapViewState {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
+export type SearchResult = {
+  provider: "nominatim";
+  providerPlaceId: string;
+  displayName: string;
+  lat: number;
+  lon: number;
+  nominatimClass?: string;
+  nominatimType?: string;
+  categoryKey: string;
+  categoryEmoji: string;
+};
