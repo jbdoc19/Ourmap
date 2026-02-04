@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ourmap</title>
-    <meta http-equiv="refresh" content="0; url=travel-pins/client/" />
-    <script>
-      window.location.replace("travel-pins/client/");
-    </script>
     <style>
       :root {
         color-scheme: light dark;
@@ -23,7 +19,7 @@
       }
 
       main {
-        max-width: 720px;
+        max-width: 760px;
       }
 
       h1 {
@@ -45,24 +41,53 @@
         text-decoration: underline;
       }
 
-      code {
+      code,
+      pre {
         padding: 0.15rem 0.35rem;
         border-radius: 0.25rem;
         background: rgba(148, 163, 184, 0.15);
+      }
+
+      pre {
+        padding: 0.75rem 1rem;
+        overflow-x: auto;
+      }
+
+      ul {
+        padding-left: 1.25rem;
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>Opening Ourmap…</h1>
+      <h1>Ourmap setup</h1>
       <p>
-        If you are not redirected automatically, open the
-        <a href="travel-pins/client/">Ourmap app</a>.
+        The app source lives in <code>travel-pins/client</code> and is built with Vite + React.
+        Opening the raw source folder directly in a browser will show a blank page because the
+        TypeScript/JSX entrypoint needs a dev server or a production build.
       </p>
+      <p>Use one of the options below to run the app:</p>
+      <ul>
+        <li>
+          <strong>Local dev (recommended)</strong>
+          <pre><code>cd travel-pins/client
+npm install
+npm run dev</code></pre>
+          <div>Then open the URL printed by Vite (usually <code>http://localhost:5173</code>).</div>
+        </li>
+        <li>
+          <strong>Production build + API server</strong>
+          <pre><code>cd travel-pins
+npm install
+npm run build
+npm run dev:server</code></pre>
+          <div>The API server serves the built client from <code>client/dist</code>.</div>
+        </li>
+      </ul>
       <p>
-        For GitHub Pages deployments, run <code>npm install</code> and
-        <code>npm run build</code> from the <code>travel-pins</code> folder,
-        then publish the client build output.
+        If you still want to peek at the source HTML, you can open
+        <a href="travel-pins/client/">travel-pins/client/</a> directly (it will remain blank without
+        a build or dev server).
       </p>
     </main>
   </body>
